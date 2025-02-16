@@ -1,0 +1,6 @@
+@ChampionsDraft.API_HostAddress = https://localhost:32769
+
+GET {{ChampionsDraft.API_HostAddress}}/weatherforecast
+Accept: application/json
+
+###
