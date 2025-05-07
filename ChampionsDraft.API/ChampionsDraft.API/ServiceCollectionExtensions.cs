@@ -1,7 +1,15 @@
-﻿namespace ChampionsDraft.API
+﻿using Application;
+
+namespace API
 {
     public static class ServiceCollectionExtensions
     {
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        {
+            services.AddScoped<ICardLibraryService, CardLibraryService>();
+            return services;
+        }
+
         public static IServiceCollection AddCustomizableSocketsHttpHandler(this IServiceCollection services)
         {
             SocketsHttpHandler socketsHttpHandler = new()

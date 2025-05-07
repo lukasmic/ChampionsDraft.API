@@ -1,6 +1,6 @@
-using ChampionsDraft.API;
-using ChampionsDraft.Infrastructure;
-using Microsoft.Azure.Cosmos;
+using API;
+using Application;
+using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,13 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi()
                 .AddCustomizableSocketsHttpHandler()
-                .AddSingleton<AzureCosmosClient>(sp =>
-                {
-                    var configuration = sp.GetRequiredService<IConfiguration>();
-                    var connectionString = configuration.GetConnectionString("CosmosDb");
-                    var options = new CosmosClientOptions();
-                    return new AzureCosmosClient(connectionString, options);
-                });
+                .AddInfrastructureServices()
+                .AddApplicationServices();
 
 var app = builder.Build();
 
@@ -26,16 +21,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/weatherforecast", () =>
+app.MapPost("/cardLibrary", async (ICardLibraryService cardDataService) =>
 {
-    var forecast = Enumerable.Range(1, 5);
-    return forecast;
+    await cardDataService.AddCardsInBatch();
+    return Results.Created();
 })
-.WithName("GetWeatherForecast");
+.WithName("Create card library");
+
+app.MapPost("/card", async (ICardLibraryService cardDataService) =>
+{
+    await cardDataService.CreateCard();
+    return Results.Created();
+})
+.WithName("Create card");
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

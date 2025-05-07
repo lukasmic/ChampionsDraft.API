@@ -1,6 +1,11 @@
-@ChampionsDraft.API_HostAddress = https://localhost:32769
+@ChampionsDraft.API_HostAddress = https://localhost:44382
 
-GET {{ChampionsDraft.API_HostAddress}}/weatherforecast
+POST {{ChampionsDraft.API_HostAddress}}/cardLibrary
+Accept: application/json
+
+###
+
+POST {{ChampionsDraft.API_HostAddress}}/card
 Accept: application/json
 
 ###
