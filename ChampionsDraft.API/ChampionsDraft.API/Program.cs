@@ -21,16 +21,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/cardLibrary", async (ICardLibraryService cardDataService) =>
+app.MapPost("/cards", async (ICardLibraryService cardDataService) =>
 {
     await cardDataService.AddCardsInBatch();
     return Results.Created();
 })
 .WithName("Create card library");
 
-app.MapPost("/card", async (ICardLibraryService cardDataService) =>
+app.MapPost("/cards/{id}", async (ICardLibraryService cardDataService, string id) =>
 {
-    await cardDataService.CreateCard();
+    await cardDataService.CreateCard(id);
     return Results.Created();
 })
 .WithName("Create card");

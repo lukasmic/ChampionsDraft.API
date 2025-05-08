@@ -7,12 +7,7 @@ public class CardLibraryService(ICardRepository cardRepository) : ICardLibrarySe
 {
     private readonly ICardRepository _cardRepository = cardRepository;
 
-    public async Task CreateCardLibrary()
-    {
-        await CreateCard();
-    }
-
-    public async Task CreateCard()
+    public async Task CreateCard(string id)
     {
         var card = new Card
         {
