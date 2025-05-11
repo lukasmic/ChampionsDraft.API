@@ -1,11 +1,13 @@
 ﻿using Contracts;
+using Contracts.Models;
 using Core;
 
 namespace Application;
 
-public class CardLibraryService(ICardRepository cardRepository) : ICardLibraryService
+public class CardLibraryService(ICardRepository cardRepository, IMarvelCdbClient marvelCdbClient) : ICardLibraryService
 {
     private readonly ICardRepository _cardRepository = cardRepository;
+    private readonly IMarvelCdbClient _marvelCdbClient = marvelCdbClient;
 
     public async Task CreateCard(string id)
     {
@@ -39,5 +41,10 @@ public class CardLibraryService(ICardRepository cardRepository) : ICardLibrarySe
             }
         };
         await _cardRepository.AddCardsInBatch(cards);
+    }
+
+    public async Task<IEnumerable<CardDTO>> GetCards()
+    {
+        return await _marvelCdbClient.GetCards();
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 
-namespace Infrastructure;
+namespace Infrastructure.Cards;
 
 public class AzureCosmosClient
 {
@@ -26,8 +26,5 @@ public class AzureCosmosClient
         Client = new CosmosClient(connectionString, cosmosClientOptions);
     }
 
-    public Database GetDatabase(string databaseId)
-    {
-        return Client.GetDatabase(databaseId);
-    }
+    public Database Database => Client.GetDatabase("ChampionsDraft");
 }

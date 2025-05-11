@@ -40,4 +40,12 @@ app.MapPost("/cards/{id}", async (ICardLibraryService cardDataService, string id
 })
 .WithName("Create card");
 
+app.MapGet("/cards", async (ICardLibraryService cardDataService) =>
+{
+    var result = await cardDataService.GetCards();
+    var heroes = result.Where(card => card.TypeName == "Hero");
+    return Results.Ok(heroes);
+})
+.WithName("Retrieve cards");
+
 app.Run();

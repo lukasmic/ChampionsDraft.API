@@ -1,11 +1,16 @@
 @ChampionsDraft.API_HostAddress = https://localhost:44382
 
-POST {{ChampionsDraft.API_HostAddress}}/cardLibrary
+POST {{ChampionsDraft.API_HostAddress}}/cards/1
 Accept: application/json
 
 ###
 
-POST {{ChampionsDraft.API_HostAddress}}/card
+POST {{ChampionsDraft.API_HostAddress}}/cards
+Accept: application/json
+
+###
+
+GET {{ChampionsDraft.API_HostAddress}}/cards
 Accept: application/json
 
 ###

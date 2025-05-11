@@ -2,7 +2,7 @@
 using Core;
 using Microsoft.Azure.Cosmos;
 
-namespace Infrastructure;
+namespace Infrastructure.Cards;
 
 public class CardRepository : ICardRepository
 {
@@ -11,7 +11,7 @@ public class CardRepository : ICardRepository
 
     public CardRepository(AzureCosmosClient cosmosClient)
     {
-        _cardDatabase = cosmosClient.GetDatabase("ChampionsDraft");
+        _cardDatabase = cosmosClient.Database;
         _container = _cardDatabase.GetContainer("Cards");
     }
 
