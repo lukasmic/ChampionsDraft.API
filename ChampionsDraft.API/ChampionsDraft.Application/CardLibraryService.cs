@@ -1,6 +1,7 @@
-﻿using Contracts;
+﻿using Application.Interfaces;
+using Contracts;
 using Contracts.Models;
-using Core;
+using Domain;
 
 namespace Application;
 

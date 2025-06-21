@@ -1,6 +1,6 @@
 ﻿using Contracts.Models;
 
-namespace Application;
+namespace Application.Interfaces;
 public interface ICardLibraryService
 {
     Task CreateCard(string id);

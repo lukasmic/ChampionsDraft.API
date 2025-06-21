@@ -1,5 +1,5 @@
 ﻿using Contracts;
-using Core;
+using Domain;
 using Microsoft.Azure.Cosmos;
 
 namespace Infrastructure.Cards;

@@ -1,7 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <ItemGroup>
-    <ProjectReference Include="..\ChampionsDraft.Core\Core.csproj" />
+    <ProjectReference Include="..\ChampionsDraft.Domain\Domain.csproj" />
   </ItemGroup>
-
 </Project>

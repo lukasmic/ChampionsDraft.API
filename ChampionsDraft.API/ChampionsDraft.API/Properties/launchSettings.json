@@ -18,11 +18,10 @@
     },
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
+      "launchUrl": "scalar",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "launchUrl": "scalar"
+      }
     },
     "Container (Dockerfile)": {
       "commandName": "Docker",

@@ -1,5 +1,6 @@
 using API;
-using Application;
+using API.Features;
+using Application.Interfaces;
 using Infrastructure;
 using Scalar.AspNetCore;
 
@@ -40,12 +41,15 @@ app.MapPost("/cards/{id}", async (ICardLibraryService cardDataService, string id
 })
 .WithName("Create card");
 
-app.MapGet("/cards", async (ICardLibraryService cardDataService) =>
+app.MapGet("/cards/{id}", async (ICardLibraryService cardDataService, string id) =>
 {
     var result = await cardDataService.GetCards();
-    var heroes = result.Where(card => card.TypeName == "Hero");
-    return Results.Ok(heroes);
+    var card = result.Where(card => card.Code == id);
+    return Results.Ok(card);
 })
-.WithName("Retrieve cards");
+.WithName("Retrieve card");
+
+app.MapHeroesEndpoints();
+app.MapDraftEndpoints();
 
 app.Run();
