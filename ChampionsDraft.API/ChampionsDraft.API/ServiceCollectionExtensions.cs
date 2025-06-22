@@ -1,4 +1,5 @@
-﻿using Application;
+﻿using API.Features;
+using Application;
 using Application.Interfaces;
 
 namespace API
@@ -9,6 +10,13 @@ namespace API
         {
             services.AddScoped<ILibraryService, LibraryService>();
             return services;
+        }
+
+        public static WebApplication AddEndpoints(this WebApplication app)
+        {
+            app.MapHeroesEndpoints();
+            app.MapLibraryEndpoints();
+            return app;
         }
 
         public static IServiceCollection AddCustomizableSocketsHttpHandler(this IServiceCollection services)

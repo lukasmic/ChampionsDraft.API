@@ -3,7 +3,7 @@ using Contracts.Models;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Json;
 
-namespace Infrastructure.MarvelCDB;
+namespace Infrastructure.Clients;
 internal class MarvelCdbClient : IMarvelCdbClient
 {
     private readonly HttpClient _httpClient;

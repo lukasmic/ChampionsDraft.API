@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 
-namespace Infrastructure.Cards;
+namespace Infrastructure.Clients;
 
 public class AzureCosmosClient
 {

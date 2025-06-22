@@ -1,6 +1,5 @@
 ﻿using Contracts;
-using Infrastructure.Cards;
-using Infrastructure.MarvelCDB;
+using Infrastructure.Clients;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure;

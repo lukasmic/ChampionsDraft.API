@@ -1,6 +1,6 @@
 ﻿using Contracts;
 using Domain;
-using Infrastructure.Cards;
+using Infrastructure.Clients;
 using Microsoft.Azure.Cosmos;
 
 namespace Infrastructure;

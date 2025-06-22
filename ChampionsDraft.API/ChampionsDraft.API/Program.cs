@@ -1,5 +1,4 @@
 using API;
-using API.Features;
 using Infrastructure;
 using Scalar.AspNetCore;
 
@@ -25,9 +24,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.MapHeroesEndpoints();
-app.MapDraftEndpoints();
-app.MapLibraryEndpoints();
+app.AddEndpoints();
 
 app.Run();
