@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton<AzureCosmosClient>();
         services.AddSingleton<IMarvelCdbClient, MarvelCdbClient>();
-        services.AddScoped<ICardRepository, CardRepository>();
+        services.AddSingleton<ILibraryRepository, LibraryRepository>();
         return services;
     }
 }

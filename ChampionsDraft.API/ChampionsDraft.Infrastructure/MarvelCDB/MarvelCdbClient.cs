@@ -17,7 +17,7 @@ internal class MarvelCdbClient : IMarvelCdbClient
         };
     }
 
-    public async Task<IEnumerable<CardDTO>> GetCards()
+    public async Task<IEnumerable<CardDTO>> GetCardsAsync()
     {
         var response = await _httpClient.GetAsync("cards");
         response.EnsureSuccessStatusCode();

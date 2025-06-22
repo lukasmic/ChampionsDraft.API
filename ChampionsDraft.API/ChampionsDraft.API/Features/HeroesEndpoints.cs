@@ -1,4 +1,4 @@
-﻿using Application.Interfaces;
+﻿using Contracts;
 
 namespace API.Features;
 
@@ -17,9 +17,9 @@ public static class HeroesEndpoints
 
     private static void MapEndpoints(this RouteGroupBuilder route)
     {
-        route.MapGet("/", async (ICardLibraryService cardDataService) =>
+        route.MapGet("/", async (IMarvelCdbClient mcdbCardService) =>
         {
-            var result = await cardDataService.GetCards();
+            var result = await mcdbCardService.GetCardsAsync();
             var heroes = result.Where(card => card.TypeName == "Hero")
                 .Select(hero => hero.Name).Distinct();
             return Results.Ok(heroes);

@@ -52,7 +52,7 @@ public class CardDTO
     public int Quantity { get; set; }
 
     [JsonPropertyName("resource_energy")]
-    public int ResourceEnergy { get; set; }
+    public int? ResourceEnergy { get; set; }
 
     [JsonPropertyName("health")]
     public int Health { get; set; }

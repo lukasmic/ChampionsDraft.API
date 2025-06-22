@@ -7,7 +7,7 @@ namespace API
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<ICardLibraryService, CardLibraryService>();
+            services.AddScoped<ILibraryService, LibraryService>();
             return services;
         }
 

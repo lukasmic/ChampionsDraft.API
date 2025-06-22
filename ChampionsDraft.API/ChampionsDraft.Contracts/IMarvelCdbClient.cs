@@ -4,5 +4,5 @@ namespace Contracts;
 
 public interface IMarvelCdbClient
 {
-    Task<IEnumerable<CardDTO>> GetCards();
+    Task<IEnumerable<CardDTO>> GetCardsAsync();
 }
