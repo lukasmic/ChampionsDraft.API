@@ -9,6 +9,7 @@ namespace API
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<ILibraryService, LibraryService>();
+            services.AddScoped<IHeroService, HeroService>();
             return services;
         }
 

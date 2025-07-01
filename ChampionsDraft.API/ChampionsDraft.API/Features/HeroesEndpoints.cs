@@ -1,4 +1,4 @@
-﻿using Contracts;
+﻿using Application.Interfaces;
 
 namespace API.Features;
 
@@ -17,13 +17,16 @@ public static class HeroesEndpoints
 
     private static void MapEndpoints(this RouteGroupBuilder route)
     {
-        route.MapGet("/", async (IMarvelCdbClient mcdbCardService) =>
+        route.MapGet("/", async (IHeroService heroService) =>
         {
-            var result = await mcdbCardService.GetCardsAsync();
-            var heroes = result.Where(card => card.TypeName == "Hero")
-                .Select(hero => hero.Name).Distinct();
-            return Results.Ok(heroes);
+            return Results.Ok(await heroService.GetAllHeroesAsync());
         })
-        .WithName("Retrieve heroes");
+        .WithName("Get all heroes");
+
+        route.MapGet("/{choiceCount}", async (IHeroService heroService, int choiceCount) =>
+        {
+            return Results.Ok(await heroService.GetRandomHeroesAsync(choiceCount));
+        })
+        .WithName("Get a random choice of requested heroes");
     }
 }
