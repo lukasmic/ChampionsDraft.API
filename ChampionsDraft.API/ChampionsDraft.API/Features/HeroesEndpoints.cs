@@ -8,8 +8,7 @@ public static class HeroesEndpoints
     {
         var route = app.MapGroup("/heroes")
             .WithTags("Heroes")
-            .WithOpenApi()
-            .WithSummary("Hero endpoints");
+            .WithOpenApi();
         route.MapEndpoints();
 
         return app;
@@ -21,12 +20,14 @@ public static class HeroesEndpoints
         {
             return Results.Ok(await heroService.GetAllHeroesAsync());
         })
-        .WithName("Get all heroes");
+            .WithName("Get all heroes")
+            .WithSummary("Get a list of all heroes");
 
         route.MapGet("/{choiceCount}", async (IHeroService heroService, int choiceCount) =>
         {
             return Results.Ok(await heroService.GetRandomHeroesAsync(choiceCount));
         })
-        .WithName("Get a random choice of requested heroes");
+            .WithName("Get random heroes")
+            .WithSummary("Get a list of random heroes based on the specified choice count");
     }
 }

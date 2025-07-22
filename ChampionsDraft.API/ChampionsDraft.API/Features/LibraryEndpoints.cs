@@ -7,9 +7,8 @@ public static class LibraryEndpoints
     public static WebApplication MapLibraryEndpoints(this WebApplication app)
     {
         var route = app.MapGroup("/cards")
-            .WithTags("library")
-            .WithOpenApi()
-            .WithSummary("Card library pool");
+            .WithTags("Library")
+            .WithOpenApi();
         route.MapEndpoints();
 
         return app;
@@ -22,27 +21,31 @@ public static class LibraryEndpoints
             var cards = await cardDataService.CreateLibraryAsync();
             return Results.Ok(cards);
         })
-        .WithName("Create card library pool");
+        .WithName("Create")
+        .WithSummary("Create a card library");
 
         route.MapGet("/", async (ILibraryService cardDataService) =>
         {
             var cards = await cardDataService.GetCardsAsync();
             return Results.Ok(cards);
         })
-        .WithName("Get all cards");
+        .WithName("GetAll")
+        .WithSummary("Get all cards in the library");
 
         route.MapGet("/{id}", async (ILibraryService cardDataService, string id) =>
         {
             var cards = await cardDataService.GetCardAsync(id);
             return Results.Ok(cards);
         })
-        .WithName("Get a card by ID");
+        .WithName("GetCardById")
+        .WithSummary("Get a card by its ID");
 
         route.MapDelete("/", async (ILibraryService cardDataService) =>
         {
             await cardDataService.DeleteAllData();
             return Results.NoContent();
         })
-        .WithName("Delete all cards");
+        .WithName("Delete")
+        .WithSummary("Delete all data in the library");
     }
 }

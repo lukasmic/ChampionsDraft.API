@@ -10,6 +10,7 @@ namespace API
         {
             services.AddScoped<ILibraryService, LibraryService>();
             services.AddScoped<IHeroService, HeroService>();
+            services.AddScoped<IDraftService, DraftService>();
             return services;
         }
 
@@ -17,6 +18,7 @@ namespace API
         {
             app.MapHeroesEndpoints();
             app.MapLibraryEndpoints();
+            app.MapDraftEndpoints();
             return app;
         }
 

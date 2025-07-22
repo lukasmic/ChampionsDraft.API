@@ -3,7 +3,8 @@ using Contracts;
 using Domain;
 
 namespace Infrastructure;
-public class DraftRepository : IDraftRespository
+
+public class DraftRepository : IDraftRepository
 {
     private readonly List<Session> _inMemoryDatabase;
 
@@ -22,9 +23,9 @@ public class DraftRepository : IDraftRespository
         return _inMemoryDatabase.Remove(draft);
     }
 
-    public IEnumerable<Session> GetAll()
+    public Task<IEnumerable<Session>> GetAll()
     {
-        return _inMemoryDatabase;
+        return Task.FromResult<IEnumerable<Session>>(_inMemoryDatabase);
     }
 
     public bool Contains(Session draft)
