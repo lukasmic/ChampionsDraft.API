@@ -41,6 +41,7 @@ public class LibraryService(ILibraryRepository libraryRepository, IMarvelCdbClie
                     Aspect = card.FactionName,
                     DeckLimit = card.DeckLimit,
                     Traits = card.Traits,
+                    Effect = card.Text,
                     Cost = card.Cost,
                     MentalResources = card.ResourceMental,
                     EnergyResources = card.ResourceEnergy,

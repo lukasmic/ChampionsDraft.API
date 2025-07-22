@@ -53,7 +53,7 @@ public static class DraftEndpoints
         {
             // Uncomment and implement this method when needed
             var offer = await draftService.GetDraftOfferAsync(sessionId, count);
-            return Results.Ok(offer);
+            return Results.Ok(offer.Select(x => x.Card));
         })
             .WithName("GetDraftOffer")
             .WithSummary("Get a draft offer for a session");
