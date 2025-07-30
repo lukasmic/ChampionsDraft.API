@@ -10,29 +10,29 @@ public class DraftService(ILibraryService libraryService, IDraftRepository draft
     private readonly ILibraryService _libraryService = libraryService;
     private readonly IDraftRepository _draftRespository = draftRespository;
 
-    public async Task<Session> CreateDraftSessionAsync(string hero, IEnumerable<Aspect> aspects, IEnumerable<string> rules)
+    public async Task<Draft> CreateDraftAsync(string hero, IEnumerable<Aspect> aspects, IEnumerable<string> rules)
     {
         var cardPool = await _libraryService.GetCardsAsync();
 
-        var session = Session.Create(hero, [.. cardPool]);
-        _draftRespository.Add(session);
+        var draft = Draft.Create(hero, [.. cardPool]);
+        _draftRespository.Add(draft);
 
-        return session;
+        return draft;
     }
 
-    public async Task<Session?> GetDraftSessionAsync(Guid sessionId)
+    public async Task<Draft?> GetDraftAsync(Guid draftId)
     {
-        var sessions = await _draftRespository.GetAll();
-        return sessions.FirstOrDefault(s => s.Id == sessionId);
+        var drafts = await _draftRespository.GetAll();
+        return drafts.FirstOrDefault(s => s.Id == draftId);
     }
 
-    public async Task<List<DraftCard>> GetDraftOfferAsync(Guid sessionId, int count)
+    public async Task<List<DraftCard>> GetOfferAsync(Guid draftId, int count)
     {
-        var sessions = await _draftRespository.GetAll();
-        var session = sessions.FirstOrDefault(s => s.Id == sessionId);
+        var drafts = await _draftRespository.GetAll();
+        var draft = drafts.FirstOrDefault(s => s.Id == draftId);
 
-        return session == null
-            ? throw new InvalidOperationException("Draft session not found.")
-            : session.GetDraftOffer(count);
+        return draft == null
+            ? throw new InvalidOperationException("Draft not found.")
+            : draft.GetDraftOffer(count);
     }
 }

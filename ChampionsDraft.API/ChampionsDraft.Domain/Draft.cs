@@ -1,6 +1,6 @@
 ﻿namespace Domain;
 
-public class Session
+public class Draft
 {
     public Guid Id { get; } = Guid.CreateVersion7();
     public string Hero { get; }
@@ -11,19 +11,19 @@ public class Session
     private double PoolWeight { get; set; }
     private List<DraftCard> OfferedCards { get; set; } = new List<DraftCard>();
     private List<Card> Deck { get; set; } = new List<Card>();
-    private SessionStatus Status { get; set; } = SessionStatus.Started;
+    private DraftStatus Status { get; set; } = DraftStatus.Started;
     private int DeckSize => Deck.Count;
 
-    private Session(string hero, IEnumerable<DraftRule>? rules, List<DraftCard> pool, double poolWeight)
+    private Draft(string hero, IEnumerable<DraftRule>? rules, List<DraftCard> pool, double poolWeight)
     {
         Hero = hero;
         Rules = rules;
         Pool = pool;
         PoolWeight = poolWeight;
-        Status = SessionStatus.InProgress;
+        Status = DraftStatus.InProgress;
     }
 
-    public static Session Create(string hero, List<Card> cardPool, IEnumerable<DraftRule>? rules = null)
+    public static Draft Create(string hero, List<Card> cardPool, IEnumerable<DraftRule>? rules = null)
     {
         if (string.IsNullOrWhiteSpace(hero))
         {
@@ -38,14 +38,14 @@ public class Session
         var pool = DraftCard.CreateDraftCards(cardPool, card => card.DeckLimit > 0 ? 1.0 : 0);
         var poolWeight = pool.Sum(card => card.GetWeight());
 
-        return new Session(hero, rules, pool, poolWeight);
+        return new Draft(hero, rules, pool, poolWeight);
     }
 
     public List<DraftCard> GetDraftOffer(int choiceCount)
     {
-        if (Status != SessionStatus.InProgress)
+        if (Status != DraftStatus.InProgress)
         {
-            throw new InvalidOperationException("Session is not in progress.");
+            throw new InvalidOperationException("Draft is not in progress.");
         }
 
         return SelectCardsWithWeights(choiceCount);
@@ -99,7 +99,7 @@ public class Session
     //    // Check if new card pool has the selected card updated
     //}
 
-    private enum SessionStatus
+    private enum DraftStatus
     {
         Started,
         InProgress,

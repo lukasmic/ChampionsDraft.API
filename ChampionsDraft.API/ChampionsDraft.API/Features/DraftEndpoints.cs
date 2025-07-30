@@ -24,38 +24,38 @@ public static class DraftEndpoints
                 return Results.BadRequest("Draft data cannot be null.");
             }
 
-            var session = await draftService.CreateDraftSessionAsync(
+            var draft = await draftService.CreateDraftAsync(
                 createDraftDTO.Hero,
                 createDraftDTO.Aspects,
                 createDraftDTO.DraftRules ?? []
             );
 
-            return Results.Created($"/draft/{session.Id}", session.Id);
+            return Results.Created($"/draft/{draft.Id}", draft.Id);
         })
-            .WithName("CreateDraftSession")
-            .WithSummary("Create a draft session");
+            .WithName("CreateDraft")
+            .WithSummary("Create a draft");
 
-        draftRoute.MapGet("/{sessionId}", async (IDraftService draftService, Guid sessionId) =>
+        draftRoute.MapGet("/{draftId}", async (IDraftService draftService, Guid draftId) =>
         {
-            var session = await draftService.GetDraftSessionAsync(sessionId);
+            var draft = await draftService.GetDraftAsync(draftId);
 
-            if (session == null)
+            if (draft == null)
             {
-                return Results.NotFound("Draft session with not found.");
+                return Results.NotFound($"Draft session with {draftId} not found.");
             }
 
-            return Results.Ok(GetSessionDTO.FromSession(session));
+            return Results.Ok(GetDraftDTO.FromDraft(draft));
         })
-            .WithName("GetDraftSession")
-            .WithSummary("Get a draft session by ID");
+            .WithName("GetDraft")
+            .WithSummary("Get a draft by ID");
 
-        draftRoute.MapGet("/{sessionId}/offer", async (IDraftService draftService, Guid sessionId, int count) =>
+        draftRoute.MapGet("/{draftId}/offer", async (IDraftService draftService, Guid draftId, int count) =>
         {
             // Uncomment and implement this method when needed
-            var offer = await draftService.GetDraftOfferAsync(sessionId, count);
+            var offer = await draftService.GetOfferAsync(draftId, count);
             return Results.Ok(offer.Select(x => x.Card));
         })
             .WithName("GetDraftOffer")
-            .WithSummary("Get a draft offer for a session");
+            .WithSummary("Get a draft offer");
     }
 }
