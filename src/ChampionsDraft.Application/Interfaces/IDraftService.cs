@@ -1,0 +1,11 @@
+﻿using ChampionsDraft.Domain;
+using ChampionsDraft.Domain.Enums;
+
+namespace ChampionsDraft.Application.Interfaces;
+
+public interface IDraftService
+{
+    Task<Draft> CreateDraftAsync(string hero, IEnumerable<Aspect> aspects, IEnumerable<string> rules);
+    Task<Draft?> GetDraftAsync(Guid draftId);
+    Task<List<DraftCard>> GetOfferAsync(Guid draftId, int count);
+}
