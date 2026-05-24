@@ -7,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi()
                 .AddCustomizableSocketsHttpHandler()
                 .AddInfrastructureServices()
-                .AddApplicationServices();
+                .AddApplicationServices()
+                .AddCors();
 
 var app = builder.Build();
 
@@ -21,6 +22,7 @@ if (app.Environment.IsDevelopment())
             .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
         //options.AddApiKeyAuthentication("apiKey", keyOptions => keyOptions.Value = "");
     });
+    app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 }
 
 // app.UseHttpsRedirection();

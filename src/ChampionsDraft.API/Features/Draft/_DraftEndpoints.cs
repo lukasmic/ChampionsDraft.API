@@ -8,6 +8,7 @@ public static class _DraftEndpoints
             .WithTags("Draft");
 
         CreateDraft.MapEndpoint(draftRoute);
+        GetAllDrafts.MapEndpoint(draftRoute);
         GetDraft.MapEndpoint(draftRoute);
         GetDraftOffer.MapEndpoint(draftRoute);
 

@@ -20,6 +20,11 @@ public class DraftService(ILibraryService libraryService, IDraftRepository draft
         return draft;
     }
 
+    public async Task<List<Draft>> GetAllDraftsAsync()
+    {
+        return (await _draftRespository.GetAll()).ToList();
+    }
+
     public async Task<Draft?> GetDraftAsync(Guid draftId)
     {
         var drafts = await _draftRespository.GetAll();

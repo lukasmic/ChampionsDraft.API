@@ -7,7 +7,7 @@ public class GetAllCards : IMinimalEndpoint
     public static void MapEndpoint(RouteGroupBuilder heroRoute)
     {
         heroRoute.MapGet("/", HandleAsync)
-            .WithName("GetAll")
+            .WithName("GetAllCards")
             .WithSummary("Get all cards in the library");
     }
 
