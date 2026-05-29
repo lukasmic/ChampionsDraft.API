@@ -2,6 +2,7 @@
 using ChampionsDraft.Contracts;
 using ChampionsDraft.Domain;
 using ChampionsDraft.Domain.Enums;
+using ChampionsDraft.Shared.Models;
 
 namespace ChampionsDraft.Application;
 
@@ -10,12 +11,16 @@ public class DraftService(ILibraryService libraryService, IDraftRepository draft
     private readonly ILibraryService _libraryService = libraryService;
     private readonly IDraftRepository _draftRespository = draftRespository;
 
-    public async Task<Draft> CreateDraftAsync(string hero, IEnumerable<Aspect> aspects, IEnumerable<string> rules)
+    public async Task<Result<Draft>> CreateDraftAsync(string hero, IEnumerable<Aspect> aspects, IEnumerable<string> rules)
     {
         var cardPool = await _libraryService.GetCardsAsync();
 
         var draft = Draft.Create(hero, [.. cardPool]);
-        _draftRespository.Add(draft);
+
+        if (draft.IsFailure)
+            return draft;
+
+        _draftRespository.Add(draft.Value!);
 
         return draft;
     }

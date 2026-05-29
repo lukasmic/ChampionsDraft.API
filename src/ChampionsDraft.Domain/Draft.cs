@@ -1,4 +1,7 @@
-﻿namespace ChampionsDraft.Domain;
+﻿using ChampionsDraft.Shared;
+using ChampionsDraft.Shared.Models;
+
+namespace ChampionsDraft.Domain;
 
 public class Draft
 {
@@ -23,12 +26,10 @@ public class Draft
         Status = DraftStatus.InProgress;
     }
 
-    public static Draft Create(string hero, List<Card> cardPool, IEnumerable<DraftRule>? rules = null)
+    public static Result<Draft> Create(string hero, List<Card> cardPool, IEnumerable<DraftRule>? rules = null)
     {
-        if (string.IsNullOrWhiteSpace(hero))
-        {
-            throw new ArgumentException("Hero cannot be null or empty.", nameof(hero));
-        }
+        if (Validations.ValidateInputParameter<string, Draft>(hero, out var result))
+            return result;
 
         if (cardPool == null || cardPool.Count == 0)
         {

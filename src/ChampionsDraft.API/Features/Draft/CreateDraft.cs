@@ -20,7 +20,10 @@ public class CreateDraft : IMinimalEndpoint
             createDraftDTO.DraftRules ?? []
         );
 
-        return Results.Created($"/draft/{draft.Id}", draft.Id);
+        if (draft.IsFailure)
+            return Results.BadRequest(draft.Error);
+
+        return Results.Created($"/draft/{draft.Value!.Id}", draft.Value.Id);
     }
 
     private class CreateDraftDTO
