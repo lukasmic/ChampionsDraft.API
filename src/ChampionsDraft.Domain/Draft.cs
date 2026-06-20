@@ -28,7 +28,7 @@ public class Draft
 
     public static Result<Draft> Create(string hero, List<Card> cardPool, IEnumerable<DraftRule>? rules = null)
     {
-        if (Validations.ValidateInputParameter<string, Draft>(hero, out var result))
+        if (!Validations.IsValidInputParameter<string, Draft>(hero, out var result))
             return result;
 
         if (cardPool == null || cardPool.Count == 0)

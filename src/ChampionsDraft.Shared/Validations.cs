@@ -4,7 +4,7 @@ namespace ChampionsDraft.Shared;
 
 public static class Validations
 {
-    public static bool ValidateInputParameter<TParam, TResult>(TParam param, out Result<TResult> result) {
+    public static bool IsValidInputParameter<TParam, TResult>(TParam param, out Result<TResult> result) {
         if (param is string str && string.IsNullOrWhiteSpace(str))
         {
             result = Result<TResult>.Failure(new Error($"{nameof(param)} parameter cannot be empty or whitespace.", ErrorType.BadRequest));
